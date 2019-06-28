@@ -10,7 +10,7 @@ RUN pip install pipenv
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Create site wordking dir
-WORKDIR /home/appuser/personal_site
+WORKDIR /home/appuser/thistle
 
 # Copy project
 COPY . .
@@ -24,7 +24,7 @@ USER appuser
 
 RUN pipenv sync
 
-EXPOSE 80/tcp
+EXPOSE 8005/tcp
 
 # set environment varibles
-ENTRYPOINT ["sh", "/home/appuser/personal_site/entrypoint.sh"]
+ENTRYPOINT ["sh", "/home/appuser/thistle/entrypoint.sh"]

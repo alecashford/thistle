@@ -5,8 +5,8 @@ if [ -f secrets.sh ]; then
 fi
 
 # Start Gunicorn app server
-pipenv run gunicorn personal_site.wsgi:application \
-               --bind 0.0.0.0:8000 \
+pipenv run gunicorn thistle.wsgi:application \
+               --bind 0.0.0.0:8005 \
                --workers 5
 
 # Now run the main container CMD, replacing this script.

@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  thistle:
+    build: .
+    volumes:
+      - .:/home/appuser/thistle
+      - static_volume:/home/appuser/thistle/thistle/static  # <-- bind the static volume
+      - media_volume:/home/appuser/thistle/media  # <-- bind the media volume
+    networks:
+      - nginx_network
+    restart: always
+
+  nginx:
+    image: nginx:1.15-alpine
+    ports:
+      - 8005:8005
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/home/appuser/thistle/thistle/static  # <-- bind the static volume
+      - media_volume:/home/appuser/thistle/media  # <-- bind the media volume
+    labels:
+      - "traefik.enabled=true"
+      - "traefik.backend=thistle"
+      - "traefik.frontend.rule=Host:thistle.ashford.sh"
+      - "traefik.docker.network=traefik_default"
+      - "traefik.port=8005"
+    depends_on:  # <-- wait for thistle to be "ready" before starting this service
+      - thistle
+    restart: always
+    networks:
+      - nginx_network
+      - traefik_default
+
+networks:
+  nginx_network:
+    driver: bridge
+  traefik_default:
+    external:
+      name: traefik_default
+
+volumes:
+  static_volume:  # <-- declare the static volume
+  media_volume:  # <-- declare the media volume
