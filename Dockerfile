@@ -24,7 +24,7 @@ USER appuser
 
 RUN pipenv sync
 
-EXPOSE 8005/tcp
+EXPOSE 80/tcp
 
 # set environment varibles
 ENTRYPOINT ["sh", "/home/appuser/thistle/entrypoint.sh"]

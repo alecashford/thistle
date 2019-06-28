@@ -12,8 +12,8 @@ from django.template import RequestContext
 def index(request):
     template = loader.get_template('thistle/index.html')
 
-    recipes = Recipe.objects.all()
-    all_ingredients = Ingredient.objects.all()
+    recipes = Recipe.objects.all().order_by('id')
+    all_ingredients = Ingredient.objects.all().order_by('id')
 
     context = {"recipes": recipes, "all_ingredients": all_ingredients}
     return HttpResponse(template.render(context, request))
