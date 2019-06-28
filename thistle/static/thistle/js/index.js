@@ -26,6 +26,7 @@ $(function () {
         var ingredients = $(event.target).closest(".recipe").find("input.form-control").tokenfield('getTokensList')
         var recipeId = $(event.target).closest(".recipe").find("input.form-control").attr("id")
         $.post("/save_recipe_changes", {
+                csrfmiddlewaretoken: window.CSRF_TOKEN,
                 ingredients: ingredients,
                 recipeId: recipeId
             });

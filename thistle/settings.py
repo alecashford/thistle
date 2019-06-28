@@ -85,8 +85,6 @@ DATABASES = {
     }
 }
 
-HEAP_ENV_ID = "1936440746"
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
